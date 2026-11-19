@@ -288,6 +288,81 @@
             box-shadow: 0 8px 20px rgba(255, 105, 180, 0.6);
         }
 
+                .final-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        #goodbye-button {
+            font-family: inherit;
+        }
+
+        .goodbye-btn.is-escaping {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            max-width: calc(100vw - 2rem);
+            z-index: 4;
+            transition: none;
+            animation: none;
+            transform: none;
+        }
+
+        .love-letter {
+            width: min(560px, calc(100% - 2rem));
+            max-height: calc(100% - 2rem);
+            margin: auto;
+            padding: 3.5rem 2rem 2rem;
+            border: none;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #ffe6e6, #e6e6fa, #ffebf5);
+            color: #4a4a4a;
+            font-family: 'Quicksand', sans-serif;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.3);
+        }
+
+        .love-letter::backdrop {
+            background: rgba(74, 74, 74, 0.45);
+            backdrop-filter: blur(5px);
+        }
+
+        .love-letter h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #ff69b4;
+            margin-bottom: 1.5rem;
+        }
+
+        .love-letter p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+            white-space: pre-line;
+        }
+
+        .love-letter-close {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff69b4, #da70d6);
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .final-actions button:focus-visible,
+        .love-letter-close:focus-visible {
+            outline: 3px solid #8a2be2;
+            outline-offset: 4px;
+        }
+
         @keyframes float {
 
             0%,
@@ -406,8 +481,120 @@
             I’m so grateful for the bond we have, and for the positivity you always bring into my life.<br>
             On your birthday, I just wish for endless happiness, love, and success to come your way.🌸</p>
         <p>You deserve all the joy in the world—keep shining and spreading your beautiful energy.✨</p>
-        <a href="#" class="goodbye-btn">Until We Meet Again 💝</a>
+        <div class="final-actions">
+            <button type="button" class="goodbye-btn" id="love-letter-button"
+                aria-haspopup="dialog" aria-controls="love-letter">A LOVE LETTER FOR MY LOVE</button>
+            <button type="button" class="goodbye-btn" id="goodbye-button"
+                aria-disabled="true">Until We Meet Again 💝</button>
+        </div>
     </section>
+    <dialog id="love-letter" class="love-letter" aria-labelledby="love-letter-title">
+        <form method="dialog">
+            <button type="submit" class="love-letter-close" aria-label="Close love letter" autofocus>&times;</button>
+        </form>
+        <h2 id="love-letter-title">A Love Letter for My Love</h2>
+        <p>My cutu ❤️
+
+I know I am a bit late but I have a confession to make you tell me how I can celebrate just 1 day where I am grateful for each and every day of your life with me .
+Some feelings deserve more than a birthday wish, and you deserve more than just a message on your special day. So an extra day gave me one more reason to remind you how special you are to me. ❤️
+Still I am sorry for not showing the efforts which u totally deserve and I get it .
+
+And further here I am letting my heart out for you in this letter ❤️
+
+Happy Birthday My cutu ❤️
+I don't know if I tell you this enough, but I genuinely feel so lucky and grateful to have you in my life.
+
+I remember each and every day till now , from the moment I met you at that coffee place , talking to you endlessly and ya I was attracted to you , so I talked to you ( I accept , though I know u will taunt me for life , but it's okay 🫣)
+And also ya before talking to you , I saw you few times roaming and running here and there 😂 , and I use to wonder who is that attractive person .. bcoz no one can bypass seeing u bcoz u r standout antique cute attractive piece 😂..
+I still remember our cute give n take of gifts in the coffee place , it was fun and memorable 😂..
+Also u calling urself spicy person and getting so shy after that 😂 and started going out for walks , gng together to home evry day, slowly removing time for each other in a day so we can spend time ..
+Don't know how time was passing by with you and evrything was so natural and comforting that never realised when I got attached to you so quick ...
+Don't know when I got obsessed with you , you smile, ur eyes , ur lips , ur cute cute tantrums , u taking care of me , u getting annoyed , also u getting jealous 😂 , evrything made me fall for u even more moment by moment ❤️..
+Ik neither of us are perfect , nor we can be , we always will have our differences and misunderstandings ..
+But one thing I want you to know , like we are in the same team .. where we be each other's support system to fight the world .
+I want something where we keep choosing each other, understanding each other, growing together and making beautiful memories along the way.
+I want you to remember one thing cutu , you are not just someone I love , but someone who I am genuinely thankful life brought into mine ❤️ 🥹.
+I will always choose you ❤️
+
+Happy Birthday once again my cutu ❤️
+
+I love you and I am so grateful and lucky that I get to call you mine ❤️
+
+Forever yours cutu ❤️</p>
+    </dialog>
+
+    <script>
+        const loveLetter = document.getElementById('love-letter');
+        document.getElementById('love-letter-button').addEventListener('click', () => {
+            loveLetter.showModal();
+        });
+        loveLetter.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                loveLetter.close();
+            }
+        });
+
+        const goodbyeButton = document.getElementById('goodbye-button');
+
+        function goodbyeBounds() {
+            return {
+                maxX: Math.max(16, document.documentElement.clientWidth - goodbyeButton.offsetWidth - 16),
+                maxY: Math.max(16, window.innerHeight - goodbyeButton.offsetHeight - 16)
+            };
+        }
+
+        function moveGoodbye(event) {
+            if (!goodbyeButton.classList.contains('is-escaping')) {
+                const actions = goodbyeButton.parentElement;
+                actions.style.minHeight = `${actions.offsetHeight}px`;
+                // Keep fixed positioning relative to the viewport, outside the blurred section.
+                document.body.appendChild(goodbyeButton);
+                goodbyeButton.classList.add('is-escaping');
+            }
+
+            const { maxX, maxY } = goodbyeBounds();
+            const width = goodbyeButton.offsetWidth;
+            const height = goodbyeButton.offsetHeight;
+            // Reserve a distant corner if random candidates all overlap the cursor.
+            let x = event.clientX < document.documentElement.clientWidth / 2 ? maxX : 16;
+            let y = event.clientY < window.innerHeight / 2 ? maxY : 16;
+
+            for (let attempt = 0; attempt < 20; attempt++) {
+                const candidateX = 16 + Math.random() * (maxX - 16);
+                const candidateY = 16 + Math.random() * (maxY - 16);
+                const nearCursor = event.clientX >= candidateX - 24 &&
+                    event.clientX <= candidateX + width + 24 &&
+                    event.clientY >= candidateY - 24 &&
+                    event.clientY <= candidateY + height + 24;
+                if (!nearCursor) {
+                    x = candidateX;
+                    y = candidateY;
+                    break;
+                }
+            }
+
+            goodbyeButton.style.left = `${x}px`;
+            goodbyeButton.style.top = `${y}px`;
+        }
+
+        window.addEventListener('resize', () => {
+            if (!goodbyeButton.classList.contains('is-escaping')) return;
+            const { maxX, maxY } = goodbyeBounds();
+            goodbyeButton.style.left = `${Math.max(16, Math.min(goodbyeButton.offsetLeft, maxX))}px`;
+            goodbyeButton.style.top = `${Math.max(16, Math.min(goodbyeButton.offsetTop, maxY))}px`;
+        });
+
+        goodbyeButton.addEventListener('pointerenter', moveGoodbye);
+        goodbyeButton.addEventListener('pointerdown', (event) => {
+            event.preventDefault();
+            moveGoodbye(event);
+        });
+        goodbyeButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            moveGoodbye(event);
+        });
+    </script>
 </body>
 
 </html>
